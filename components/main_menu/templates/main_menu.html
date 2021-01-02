@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="{{ url_for('main_menu.static', filename='css/main-menu.css') }}"/>
+
+    {% if session.logged_in %}
+        {%
+        set menu_items = {
+        'homepage': '/',
+        'about': url_for('about.index'),
+        'categories': url_for('categories.index'),
+        'profile': url_for('profile.index'),
+        'contact us': url_for('contact_us.index'),
+        }
+        %}
+    {% else %}
+        {%
+        set menu_items = {
+        'homepage': '/',
+        'about': url_for('about.index'),
+        'categories': url_for('categories.index'),
+        'contact us': url_for('contact_us.index'),
+        }
+        %}
+    {%  endif %}
+
+
+<div class="nav-bar">
+{% for item in menu_items %}
+        <a  class="nav-bar-link"
+            href="{{ menu_items[item] }}"
+            {% if menu_items[item] == request.path %}
+                class="active"
+            {% endif %}
+        >{{ item | capitalize }}</a>
+{% endfor %}
+</div>
